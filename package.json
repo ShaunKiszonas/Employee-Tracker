@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3",
+    "router": "^1.3.7"
+  },
+  "name": "employee-tracker",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShaunKiszonas/Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShaunKiszonas/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/ShaunKiszonas/Employee-Tracker#readme",
+  "devDependencies": {}
+}
