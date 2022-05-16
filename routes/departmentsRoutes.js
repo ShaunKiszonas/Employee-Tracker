@@ -12,7 +12,7 @@ router.get('/departments', (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
-    }
+    } console.log(rows);
     res.json({
       message: 'success',
       data: rows

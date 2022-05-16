@@ -5,13 +5,9 @@ const inputCheck = require('../utils/inputCheck');
 
 // Get the roles
 router.get('/roles', (req, res) => {
-  const sql = `SELECT roles.*
-                COUNT(candidate_id) 
-                AS count FROM votes 
-                LEFT JOIN candidates ON votes.candidate_id = candidates.id 
-                LEFT JOIN parties ON candidates.party_id = parties.id 
-                GROUP BY candidate_id 
-                ORDER BY count DESC`;
+  const sql = `SELECT roles.*, departments.name
+                FROM roles
+                LEFT JOIN departments ON roles.department_id = departments.id`;
 
   db.query(sql, (err, rows) => {
     if (err) {
@@ -28,14 +24,14 @@ router.get('/roles', (req, res) => {
 // Create a roles record
 router.post('/roles', ({ body }, res) => {
   // Data validation
-  const errors = inputCheck(body, 'department_id', 'employee_id');
+  const errors = inputCheck(body, 'title', 'salary', 'department_id');
   if (errors) {
     res.status(400).json({ error: errors });
     return;
   }
 
-  const sql = `INSERT INTO votes (department_id, employee_id) VALUES (?,?)`;
-  const params = [body.department_id, body.employee_id];
+  const sql = `INSERT INTO votes (title, salary, department_id) VALUES (?,?,?)`;
+  const params = [body.title, body.salary, body.department_id];
 
   db.query(sql, params, (err, result) => {
     if (err) {

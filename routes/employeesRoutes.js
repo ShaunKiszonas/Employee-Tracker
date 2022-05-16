@@ -4,8 +4,9 @@ const db = require('../db/connection');
 const inputCheck = require('../utils/inputCheck');
 
 // Get all employee alphabetized by last name
-router.get('/employee', (req, res) => {
-  const sql = `SELECT * FROM employees ORDER BY last_name`;
+router.get('/employees', (req, res) => {
+  const sql = `SELECT employees.*, roles.name FROM employees ORDER BY last_name
+              LEFT JOIN roles ON roles.id = employees.role_id`;
 
   db.query(sql, (err, rows) => {
     if (err) {
@@ -19,8 +20,8 @@ router.get('/employee', (req, res) => {
   });
 });
 
-// Get single voter
-router.get('/employee/:id', (req, res) => {
+// Get single employee
+router.get('/employees/:id', (req, res) => {
   const sql = `SELECT * FROM employees WHERE id = ?`;
   const params = [req.params.id];
 
@@ -36,8 +37,8 @@ router.get('/employee/:id', (req, res) => {
   });
 });
 
-// Create a voter
-router.post('/employee', ({ body }, res) => {
+// Create a employee
+router.post('/employees', ({ body }, res) => {
   const errors = inputCheck(body, 'first_name', 'last_name', 'role_id', 'manager_id');
   if (errors) {
     res.status(400).json({ error: errors });
@@ -59,8 +60,8 @@ router.post('/employee', ({ body }, res) => {
   });
 });
 
-// Update a voter's email
-router.put('/employee/:id', (req, res) => {
+// Update a employee
+router.put('/employees/:id', (req, res) => {
   const errors = inputCheck(req.body, 'role_id');
   if (errors) {
     res.status(400).json({ error: errors });
@@ -87,8 +88,8 @@ router.put('/employee/:id', (req, res) => {
   });
 });
 
-// Delete a voter
-router.delete('/employee/:id', (req, res) => {
+// Delete a employee
+router.delete('/employees/:id', (req, res) => {
   const sql = `DELETE FROM employees WHERE id = ?`;
 
   db.query(sql, req.params.id, (err, result) => {
