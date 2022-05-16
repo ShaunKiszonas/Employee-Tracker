@@ -1,8 +1,8 @@
 const express = require('express');
-const router = express.router();
+const router = express.Router();
 
-router.use(require('./departmentRoutes'));
-router.use(require('./positionRoutes'));
-router.use(require('./employeeRoutes'));
+router.use(require('./departmentsRoutes'));
+router.use(require('./rolesRoutes'));
+router.use(require('./employeesRoutes'));
 
-mobile.exports = router;
+module.exports = router;
